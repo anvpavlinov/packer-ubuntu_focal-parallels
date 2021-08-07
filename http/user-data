@@ -1,0 +1,32 @@
+#cloud-config
+autoinstall:
+    version: 1
+    early-commands:
+        # Stop ssh for packer
+        - sudo systemctl stop ssh
+    locale: en_US
+    keyboard:
+        layout: en
+        variant: us
+    identity:
+        hostname: ubuntu-server
+        username: ubuntu
+        # Password hash for "ubuntu"
+        password: "$6$rounds=4096$iIMBTfV0p$gQiLpRx/5OBlI6SSxpFOFPwrm4Ro0x3QmEtC3GNJ2VInT2ObDMexMDpNOadWzohHZifQP2HKZPNGWQtyaLz3u/"
+    ssh:
+        install-server: yes
+        allow-pw: yes
+    storage:
+        layout:
+            name: lvm
+    apt:
+        primary:
+            - arches: [amd64]
+              uri: "http://ru.archive.ubuntu.com/ubuntu/"
+    user-data:
+      disable_root: false
+    late-commands:
+      - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config
+      - sed -i -e 's/^#\?PermitRootLogin.*/PermitRootLogin no/g' /target/etc/ssh/sshd_config
+      - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+      - chmod 440 /target/etc/sudoers.d/ubuntu

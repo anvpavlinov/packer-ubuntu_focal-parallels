@@ -1,0 +1,12 @@
+---
+- name: Postinstall tasks
+  gather_facts: false
+  hosts: all
+  tasks:
+    - name: Install pkgs
+      apt: 
+        name:
+          - nginx
+          - mc
+          - iotop
+        state: present
