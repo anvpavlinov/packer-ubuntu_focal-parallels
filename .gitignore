@@ -1,3 +1,6 @@
 output*
 preseed.cfg
 packer_cache
+iso
+*.iso
+.DS_Store

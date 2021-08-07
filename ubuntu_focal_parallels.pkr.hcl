@@ -8,23 +8,23 @@ packer {
 }
 
 variable "ubuntu_focal_iso_url" {
-  type = string
-    default = "https://mirror.yandex.ru/ubuntu-releases/20.04.2.0/ubuntu-20.04.2-live-server-amd64.iso"
+  type    = string
+  default = "https://mirror.yandex.ru/ubuntu-releases/20.04.2.0/ubuntu-20.04.2-live-server-amd64.iso"
   // default = "file:///Users/username/Downloads/ubuntu-20.04.2-live-server-amd64.iso"
 }
 
 variable "iso_target_dir" {
   type    = string
-  default = "~/Downloads"
+  default = "iso"
 }
 
 variable "ssh_local_user" {
-  type = string
+  type    = string
   default = "ubuntu"
 }
 
 variable "ssh_local_pass" {
-  type = string
+  type    = string
   default = "ubuntu"
 }
 
@@ -70,8 +70,8 @@ build {
   }
 
   provisioner "file" {
-  source = "postinstall.yaml"
-  destination = "/tmp/postinstall.yaml"
+    source      = "postinstall.yaml"
+    destination = "/tmp/postinstall.yaml"
   }
 
   provisioner "shell" {
